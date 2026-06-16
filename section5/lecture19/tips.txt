@@ -1,0 +1,15 @@
+If the landing page for multiplatform conduktor via docker compose isn't loading, 
+you may instead see a login page that does offer account creation. 
+
+In that case, to set the admin credentials, you should go to conduktor-kafka-single.yml
+and edit the appropriate subsection of that docker-compose config to include
+
+services:
+  conduktor-console:
+    environment:
+      CDK_ADMIN_EMAIL: "admin@conduktor.io"
+      CDK_ADMIN_PASSWORD: YOUR_CHOICE_OF_PASSWORD
+
+Entering that email and password will allow you to circumvent the lack of a landing page
+for account creation.
+
