@@ -1,5 +1,6 @@
-run
-
+to observe the partition-assignment behavior shown in the lectures,
+first run
 ```
 kafka-topics.sh --bootstrap-server localhost:9092 --topic demo_java --create --partitions 3
 ```
+then run the producer demos, then run the consumer demos. 
