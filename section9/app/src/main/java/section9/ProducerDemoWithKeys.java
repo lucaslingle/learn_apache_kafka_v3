@@ -27,7 +27,7 @@ public class ProducerDemoWithKeys {
         
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 10; i++) {
-                String topic = "Section9.ProducerDemoWithKeys";
+                String topic = "demo_java";
                 String key = "id_" + i;
                 String value = "Hello, Keyed World " + i;
                 ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);

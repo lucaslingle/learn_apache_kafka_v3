@@ -20,7 +20,7 @@ public class ProducerDemo {
 
         log.info("Creating Kafka producer");
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
-        producer.send(new ProducerRecord<>("Section9.ProducerDemo", "Hello, World!"));
+        producer.send(new ProducerRecord<>("demo_java", "Hello, World!"));
         producer.close();
         log.info("Producer closed");
     }

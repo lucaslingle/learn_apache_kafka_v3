@@ -45,7 +45,7 @@ public class ProducerDemoWithCallback {
         
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 30; i++) {
-                ProducerRecord<String, String> record = new ProducerRecord<>("Section9.ProducerDemoWithCallback", "Hello, RoundRobin World " + i);
+                ProducerRecord<String, String> record = new ProducerRecord<>("demo_java", "Hello, RoundRobin World " + i);
                 producer.send(record, callback);
             }
             try {
