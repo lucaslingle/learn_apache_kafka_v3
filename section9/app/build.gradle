@@ -10,6 +10,9 @@ plugins {
     id 'application'
 }
 
+group 'section9'
+version '1.0-SNAPSHOT'
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -33,7 +36,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(26)
     }
 }
 
