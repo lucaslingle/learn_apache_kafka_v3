@@ -10,6 +10,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.EventSource;
+import okhttp3.Headers;
 
 public class WikimediaChangesProducer {
     public static void main(String[] args) throws InterruptedException {
@@ -24,7 +25,11 @@ public class WikimediaChangesProducer {
 
         String url = "https://stream.wikimedia.org/v2/stream/recentchange";
         EventHandler handler = new WikimediaChangeHandler(producer, topic);
-        EventSource.Builder builder = new EventSource.Builder(handler, URI.create(url));
+        Headers headers = new Headers.Builder()
+                .add("User-Agent", "WikimediaChangesProducer/1.0 (kafka-learning)")
+                .build();
+        EventSource.Builder builder = new EventSource.Builder(handler, URI.create(url))
+                .headers(headers);
         EventSource source = builder.build();
 
         // starts another thread to listen
