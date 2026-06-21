@@ -1,0 +1,7 @@
+Don't forget to create the topic, e.g., 
+
+```
+kafka-topics.sh --bootstrap-server localhost:9092 --topic wikimedia.recentchange --create --partitions 3
+```
+
+before running your WikimediaChangesProducer.
