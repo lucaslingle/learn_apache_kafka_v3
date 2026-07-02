@@ -67,7 +67,9 @@ https://stackoverflow.com/questions/70216176/elasticsearch-elasticsearchexceptio
 But in practice, it cannot be easily fixed because confluent deletes kafka connector versions 
 that reach EOL, which includes those that use the older dependency version we require. 
 
-Let's move on to lecture 94 after following the rest visually.
-
----------------------------------------------------------------------------------------------
-Lecture 94.
+10. To bypass the access denied http error due to EOL, I also tried running
+```
+curl -o confluentinc-kafka-connect-elasticsearch-11.1.8.zip https://hub-downloads.confluent.io/api/plugins/confluentinc/kafka-connect-elasticsearch/versions/11.1.8/confluentinc-kafka-connect-elasticsearch-11.1.8.zip
+```
+But I did not get a real ZIP file. I got the 403 error as an XML file. So it doesn't work.
+Let's move on after following the rest of this lecture visually.
