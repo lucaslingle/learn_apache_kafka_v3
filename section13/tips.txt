@@ -1,0 +1,73 @@
+---------------------------------------------------------------------------------------------
+Lecture 93.
+
+1. Go to 
+```
+https://www.confluent.io/hub/
+```
+and search for kafka connect elasticsearch sink. Download the earliest version after 11.1.8 
+that you can (some may not be available on download attempt). It is a ZIP file.
+
+2. Go to 
+```
+https://github.com/conduktor/kafka-connect-wikimedia
+```
+Download the JAR from the releases page.
+Also, download the ```wikimedia.properties``` file from the repo.
+
+3. Go to your local installation of kafka and create a ```connectors``` directory.
+Create a subdirectory of ```connectors``` called ```kafka-connect-wikimedia```.
+Copy/move the JAR file from step 2 into this subdirectory.
+
+4. Go back up one level to the ```connectors``` directory. 
+Copy/move the downloaded ZIP file from step 1 to this directory. 
+Unzip the downloaded ZIP file. It will be a folder with many files. 
+Rename the folder ```kafka-connect-elasticsearch```.
+
+5. Recall that at the beginning of the course you downloaded code from 
+```
+https://www.conduktor.io/apache-kafka-for-beginners
+```
+This code includes a directory ```2-kafka-extended``` 
+which contains a ```config``` subdirectory. 
+Open ```connector-standalone.properties``` and edit the line with key ```plugin.path``` 
+to have value equal to the full path to the connectors subdirectory created in step 3. 
+(In my case the value is ```/Users/lucaslingle/kafka_2.13-4.2.0/connectors```.)
+
+6. Then run the command contained in ```2-kafka-extended/0-kafka-connect-wikimedia.sh```, 
+which we have written as a relative path from the code download referenced in step 5. 
+It should write to a kafka topic ```wikimedia.recentchange.connect```, which you can verify
+using the kafka CLI. (You should stop it after a bit so it doesn't write too much to disk.)
+
+7. The code download subdirectory ```2-kafka-extended/config``` should also contain a file 
+called ```wikimedia.properties```. You do not have to edit that one, or do anything at all. 
+But it's mentioned because the script ```2-kafka-extended/0-kafka-connect-wikimedia.sh``` 
+uses it along with ```connector-standalone.properties``` to configure the wikimedia connector. 
+
+8. We used a source connector to write the wikimedia edit stream into kafka.
+Now let's use a sink connector to write into opensearch. Run the command contained in 
+```2-kafka-extended/1-kafka-connect-elasticsearch.sh```. 
+It should work as long as your opensearch docker container from section 12 is still running. 
+Note this script uses a helper config at ```2-kafka-extended/config/elasticsearch.properties```,
+analogous to the one in step 7 for the wikimedia source connector.
+
+9. For me, step 8 fails with any version of the elasticsearch sink connector currently 
+available for download on ```confluent.io/hub```. It apparently worked fine with version 11.1.8
+used in the course but as of now it is not possible to download anything below major version 14, 
+on which the command fails because the connector knows opensearch isn't elasticsearch. 
+There's a little check, and it says 
+```
+Invalid or missing tagline [The OpenSearch Project: https://opensearch.org/]
+```
+In theory this can be fixed by downgrading the Opensearch REST High-Level API dependency
+to use an older version number, see here:
+```
+https://stackoverflow.com/questions/70216176/elasticsearch-elasticsearchexception-invalid-or-missing-tagline-opensearch
+```
+But in practice, it cannot be easily fixed because confluent deletes kafka connector versions 
+that reach EOL, which includes those that use the older dependency version we require. 
+
+Let's move on to lecture 94 after following the rest visually.
+
+---------------------------------------------------------------------------------------------
+Lecture 94.
